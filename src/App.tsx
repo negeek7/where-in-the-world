@@ -6,7 +6,7 @@ function App() {
 
 
   return (
-    <div className="border-2 border-red-700">   
+    <div className="border-2 border-red-700 flex flex-col">   
      Main Page
 
      <DarkModeToggle />
