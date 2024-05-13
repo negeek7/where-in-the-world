@@ -7,7 +7,7 @@ function DarkModeToggle() {
 
   return (
     <>
-      <button onClick={toggleDarkMode}>Dark Mode</button>
+      
     </>
   )
 }
