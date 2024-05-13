@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 :root {
-  font-family: Nunito Sans;
+  font-family: "Nunito Sans", sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
@@ -66,3 +66,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 } */
+
+* {
+  @apply transition-colors duration-300
+}
