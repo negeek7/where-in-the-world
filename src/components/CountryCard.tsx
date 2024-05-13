@@ -1,6 +1,10 @@
 import styles from '../../styles/countrycard.module.css'
 
-function CountryCard() {
+interface propsInfo {
+    country: Object
+}
+
+function CountryCard({country}: propsInfo) {
     return (
         <div className={`${styles.container}`}>
             <div className={styles.imagecontainer}>
