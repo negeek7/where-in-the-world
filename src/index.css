@@ -1,6 +1,8 @@
 @import url('https://fonts.google.com/specimen/Nunito+Sans');
 
-
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   font-family: Nunito Sans;
