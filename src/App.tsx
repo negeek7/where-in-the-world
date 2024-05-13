@@ -7,24 +7,22 @@ import { countryApiCaller } from './util/countryApiCaller'
 function App() {
 
   const [countryData, setCountryData] = useState([])
+  const [dataLimit, setDataLimit] = useState(20)
 
   useEffect(() => {
     // made an api caller an called api with fields/filters for faster response
     countryApiCaller('https://restcountries.com/v3.1/all', {
-      name:"name",
-      flags: "flags",
-      region: "region",
-      population:"population",
-      capital:"capital"
+      fields: ["name", "flags", "population", "capital", "region"],
+      limit: dataLimit
     })
-    .then(res => setCountryData(res))
-    .catch(error => console.log(error))
+      .then(res => setCountryData(res))
+      .catch(error => console.log(error))
   }, [])
 
   return (
     <>
       <NavBar />
-      <Home data={countryData}/>
+      <Home data={countryData} />
     </>
   )
 }
