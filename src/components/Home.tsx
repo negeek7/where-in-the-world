@@ -1,4 +1,6 @@
 import CountryCard from "./CountryCard"
+import FilterComponent from "./FilterComponent"
+import SearchInput from "./SearchInput"
 
 
 // Interface is used to define structure of an object, 
@@ -30,12 +32,20 @@ function Home({ data }: PropsInfo) {
 
 
     return (
-        <div className="flex flex-row flex-wrap h-dvh p-14 gap-12 justify-center">
+        <div>
+            <div className="flex flex-row flex-wrap gap-8 py-4 md:py-2 md:justify-between md:items-center border-2 mt-8 md:px-40">
+                <SearchInput
+                    placeholder={"Search for a country..."}
+                />
+                <FilterComponent />
+            </div>
+            <div className="flex flex-row flex-wrap h-dvh py-10 px-14 gap-12 justify-center">
             {
                 data.map((country, index) => (
                     <CountryCard key={index} country={country} />
                 ))
             }
+        </div>
         </div>
     )
 }
