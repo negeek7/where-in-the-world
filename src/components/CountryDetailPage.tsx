@@ -3,9 +3,11 @@ import { useParams } from "react-router-dom";
 import { getCountriesByName } from "../util/countryApiCaller";
 import styles from '../../styles/countrydetailpage.module.css';
 import { ArrowLeft } from "@phosphor-icons/react";
+import { useNavigate } from 'react-router-dom';
 
 function CountryDetailPage() {
 
+  const navigate = useNavigate();
 
   type ContryData = {
     name: {
@@ -59,30 +61,36 @@ function CountryDetailPage() {
   const getBorderCountries = (arr: Array<string>) => {
     return arr.map(item => {
       return (
-        <span className="py-1 px-6 border-2 ml-2 rounded border-none shadow-lg">{item} </span>
+        <span className="py-1 px-6 ml-4 text-sm rounded shadow-lg dark:shadow-lg dark:font-extralight">{item} </span>
       )
     })
   }
 
   return (
-    <div className="p-6 px-6 dark:bg-dark-main-color border-2">
-      <button className="border-none text-sm md:text-lg flex text-center items-center gap-4 justify-center shadow-lg outline-none focus:ring-0 hover:ring-0 dark:text-white mb-16">
-        <ArrowLeft size={20} />
-        <span>Back</span>
-      </button>
-      <div className="flex flex-row flex-wrap items-center justify-center">
+    <div className="px-6 lg:px-12 xl:px-28 p-6 dark:bg-dark-main-color">
+
+        <div className="flex justify-start">
+          <button onClick={() => navigate(-1)}className="text-sm md:text-lg flex items-center gap-4 justify-center shadow-lg outline-none focus:ring-0 hover:ring-0 dark:text-white">
+            <ArrowLeft size={20} />
+            <span>Back</span>
+          </button>
+        </div>
+        
+      <div className="flex flex-row flex-wrap gap-12 md:gap-4 lg:gap-24 items-center mt-20">
         {
           countryData && 'flags' in countryData &&
           <div className={styles.imagecontainer}>
             <img src={countryData.flags.png} />
           </div>
         }
-        <div className="flex gap-4 flex-col dark:text-white border-2 border-red-500">
+
+
+        <div className="flex gap-4 flex-col dark:text-white">
           {
             countryData && 'name' in countryData &&
-            <h2 className="font-bold text-2xl my-8">{countryData.name.official}</h2>
+            <h2 className="font-bold text-2xl mb-8">{countryData.name.official}</h2>
           }
-          <div className="flex flex-row flex-wrap gap-10 md:gap-14">
+          <div className="flex flex-col lg:flex-row flex-wrap gap-10 md:gap-14">
             <div className="flex flex-col gap-2">
               {
                 countryData && 'nativeName' in countryData && countryData.nativeName && countryData.nativeName.length > 0 &&
@@ -90,7 +98,7 @@ function CountryDetailPage() {
               }
               {
                 countryData && 'population' in countryData &&
-                <p className="text-light-font-color font-semibold dark:text-gray-200">Population: <span className="font-extralight">{countryData.population}</span></p>
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Population: <span className="font-extralight">{countryData.population.toLocaleString()}</span></p>
               }
               {
                 countryData && 'region' in countryData &&
@@ -105,6 +113,7 @@ function CountryDetailPage() {
                 <p className="text-light-font-color font-semibold dark:text-gray-200">Capital: <span className="font-extralight">{countryData.capital[0]}</span></p>
               }
             </div>
+
             <div className="flex flex-col gap-2">
               {
                 countryData && 'currencies' in countryData &&
@@ -116,10 +125,13 @@ function CountryDetailPage() {
               }
             </div>
           </div>
-          <div className="mt-8 md:mt-0">
+          <div className="mt-8 flex flex-row gap-2 md:mt-0 md:flex">
             {
               countryData && 'borders' in countryData &&
-              <p className="dark:text-gray-200">Border Countries: {getBorderCountries(countryData.borders)}</p>
+              <>
+                <p className="dark:text-gray-200">Border Countries:</p>
+                <div>{getBorderCountries(countryData.borders)}</div>
+              </>
             }
           </div>
         </div>
