@@ -74,6 +74,7 @@ function App() {
   // remove scroll event once no more data is left to be sliced
 
   const handleSearchValue = (value: string) => {
+    if(!value) setSearchFilteredData([]);
     const result = slicedCountryData.filter((item: {name: {common: string}}) =>{
       const itemName = item.name.common.toLowerCase()
       const searchValue = value.toLowerCase()
@@ -85,6 +86,10 @@ function App() {
     }
   }
 
+  const handleFilterSearch = () => {
+
+  }
+
   return (
     <>
       <NavBar />
@@ -92,6 +97,7 @@ function App() {
         data={slicedCountryData} 
         handleSearchValue={handleSearchValue}
         searchFilteredData={searchFilteredData}
+        handleFilterSearch={handleFilterSearch}
       />
     </>
   )

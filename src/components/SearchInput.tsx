@@ -43,6 +43,7 @@ function SearchInput({placeholder, handleSearchValue}: InputProps) {
             className="p-2 w-72 focus:ring-0 outline-none"
             value={inputText}
             onChange={handleInputText}
+            onInput={handleInputText}
         />
     </div>
   )

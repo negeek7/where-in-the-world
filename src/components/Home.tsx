@@ -11,7 +11,8 @@ import SearchInput from "./SearchInput"
 interface PropsInfo {
     data: Array<Country>,
     handleSearchValue: Function,
-    searchFilteredData: Array<Country>
+    handleFilterSearch: Function,
+    searchFilteredData: Array<Country>,
 }
 
 
