@@ -46,9 +46,6 @@ function CountryDetailPage() {
       .catch(error => console.log(error))
   }, [])
 
-
-  console.log(countryData, "countryData")
-
   const getCurrencies = (obj: object) => {
     return Object.values(obj)[0].name
   }
@@ -77,7 +74,7 @@ function CountryDetailPage() {
             </button>
           </div>
           
-        <div className="flex flex-row flex-wrap gap-12 md:gap-4 lg:gap-24 items-center mt-20">
+        <div className="flex flex-row flex-wrap gap-12 md:gap-4 lg:gap-24 items-center mt-12 sm:mt-20">
           {
             countryData && 'flags' in countryData &&
             <div className={styles.imagecontainer}>

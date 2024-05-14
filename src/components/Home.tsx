@@ -52,7 +52,7 @@ function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: Pro
 
 
     return (
-        <div>
+        <>
             <div className="flex flex-col gap-4 sm:flex-row justify-center sm:justify-between pt-6 sm:pt-10 pl-16 md:px-24">
                 <SearchInput
                     placeholder={"Search for a country..."}
@@ -66,7 +66,7 @@ function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: Pro
             <div className="grid grid-cols-1 justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-dvh py-10 px-14 gap-12 justify-center">
                 {renderData()}
             </div>
-        </div>
+        </>
     )
 }
 
