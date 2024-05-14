@@ -91,11 +91,11 @@ function CountryDetailPage() {
           }
           {
             countryData && 'subregion' in countryData &&
-            <p>Region: {countryData.subregion}</p>
+            <p>Sub Region: {countryData.subregion}</p>
           }
           {
             countryData && 'capital' in countryData &&
-            <p>Region: {countryData.capital[0]}</p>
+            <p>Capital: {countryData.capital[0]}</p>
           }
           {
             countryData && 'currencies' in countryData &&
