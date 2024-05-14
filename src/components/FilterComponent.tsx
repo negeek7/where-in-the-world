@@ -1,8 +1,14 @@
 import { useState } from "react";
 
-function FilterComponent() {
 
-  const regions = ["Africa", "America", "Asia", "Europe", "Oceania"]
+// we can also use types to define props structure
+type FilterProps = {
+  handleFilterSearch: Function,
+  regions: Array<string>
+}
+
+function FilterComponent({handleFilterSearch, regions}: FilterProps) {
+
   const [isOpen, setIsOpen] = useState(false)
   const [selectedRegion, setSelectedRegion] = useState('')
 
@@ -13,6 +19,7 @@ function FilterComponent() {
   const handleSelectRegion = (value: string) => {
     setSelectedRegion(value)
     setIsOpen(false)
+    handleFilterSearch(value)
   }
 
   return (

@@ -11,6 +11,7 @@ function App() {
   const [slicedCountryData, setSlicedCountryData] = useState([])
   const [endOfData, setEndOfData] = useState<boolean>(false)
   const [searchFilteredData, setSearchFilteredData] = useState([])
+  const [dropdownFilterData, setDropdownFilterData] = useState([])
   const [filtersApplied, setFiltersApplied] = useState<boolean>(false)
 
   // reference to hold the debounce timeoutId
@@ -38,7 +39,7 @@ function App() {
     if(!result.length){
       setEndOfData(true)
     } else {
-      setSlicedCountryData(result)
+      setSlicedCountryData(prev => [...prev, ...result])
     }
   }, [dataLimit])
 
@@ -47,6 +48,12 @@ function App() {
       document.removeEventListener('scroll', handleScroll)
     }
   }, [endOfData])
+
+  // useEffect(() => {
+  //   if(!!searchFilteredData.length || !!dropdownFilterData.length){
+  //     setFilteredData([...searchFilteredData, ...dropdownFilterData])
+  //   }
+  // }, [searchFilteredData, dropdownFilterData])
 
   const handleScroll = () => {
     if (endOfData) return;
@@ -86,9 +93,20 @@ function App() {
     }
   }
 
-  const handleFilterSearch = () => {
-
+  const handleFilterSearch = (value: string) => {
+    if(!value) setDropdownFilterData([]);
+    const result = slicedCountryData.filter((item: {region: string}) =>{
+      const region = item.region.toLowerCase()
+      const searchValue = value.toLowerCase()
+      return region === searchValue
+    })
+    console.log(result, "result")
+    if(result.length > 0){
+      setDropdownFilterData(result)
+    }
   }
+
+  console.log(dropdownFilterData, "dropdownFilterData")
 
   return (
     <>
@@ -96,8 +114,9 @@ function App() {
       <Home 
         data={slicedCountryData} 
         handleSearchValue={handleSearchValue}
-        searchFilteredData={searchFilteredData}
         handleFilterSearch={handleFilterSearch}
+        searchFilteredData={searchFilteredData}
+        dropdownFilterData={dropdownFilterData}
       />
     </>
   )

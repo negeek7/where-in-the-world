@@ -13,6 +13,8 @@ interface PropsInfo {
     handleSearchValue: Function,
     handleFilterSearch: Function,
     searchFilteredData: Array<Country>,
+    dropdownFilterData: Array<Country>,
+    // filteredData: Array<Country>
 }
 
 
@@ -30,25 +32,25 @@ export interface Country {
     capital: Array<String>,
 }
 
-function Home({ data, handleSearchValue, searchFilteredData }: PropsInfo) {
+function Home({ data, handleSearchValue, searchFilteredData, handleFilterSearch, dropdownFilterData }: PropsInfo) {
 
     console.log(data, "DATAA")
 
 
     const renderData = () => {
-        if(searchFilteredData && searchFilteredData.length > 0){
+        if (searchFilteredData && searchFilteredData.length > 0) {
             return (
                 searchFilteredData.map((country, index) => (
                     <CountryCard key={index} country={country} />
                 ))
             )
-        } else if (data && data.length){
+        } else if (data && data.length) {
             return (
                 data.map((country, index) => (
                     <CountryCard key={index} country={country} />
                 ))
             )
-        } 
+        }
     }
 
 
@@ -59,11 +61,14 @@ function Home({ data, handleSearchValue, searchFilteredData }: PropsInfo) {
                     placeholder={"Search for a country..."}
                     handleSearchValue={handleSearchValue}
                 />
-                <FilterComponent />
+                <FilterComponent
+                    regions={["Africa", "Americas", "Asia", "Europe", "Oceania"]}
+                    handleFilterSearch={handleFilterSearch}
+                />
             </div>
-            <div className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-dvh py-10 px-14 gap-12 justify-center">
+            <div className="grid grid-cols-1 justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-dvh py-10 px-14 gap-12 justify-center">
                 {renderData()}
-        </div>
+            </div>
         </div>
     )
 }
