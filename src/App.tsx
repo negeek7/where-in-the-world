@@ -103,13 +103,6 @@ function App() {
     }, 600);
   };
 
-
-  // make another state -> slicedCountryData -> countryData.slice(0,21) -> first 20 items
-  // pass sliced data to <Home />
-  // add event on scroll to slice and pass next 20 items -> (0, 41 {passState + 20})
-  // add debounce to handle scroll 
-  // remove scroll event once no more data is left to be sliced
-
   const handleSearchValue = async (value: string) => {
     const { search } = filtersApplied
     if (!value) {

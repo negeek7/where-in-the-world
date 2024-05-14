@@ -53,7 +53,7 @@ function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: Pro
 
     return (
         <div>
-            <div className="flex flex-row flex-wrap gap-8 py-4 px-14 md:px-28 md:py-2 md:justify-between md:items-center mt-8">
+            <div className="flex flex-col gap-4 sm:flex-row justify-center sm:justify-between pt-6 sm:pt-10 pl-16 md:px-24">
                 <SearchInput
                     placeholder={"Search for a country..."}
                     handleSearchValue={handleSearchValue}

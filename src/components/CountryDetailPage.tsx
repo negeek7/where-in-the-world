@@ -95,34 +95,34 @@ function CountryDetailPage() {
               <div className="flex flex-col gap-2">
                 {
                   countryData && 'nativeName' in countryData && countryData.nativeName && countryData.nativeName.length > 0 &&
-                  <p className="text-light-font-color font-semibold dark:text-gray-200">Native Name: <span className="font-extralight">{countryData.nativeName[0].official}</span></p>
+                  <p className="text-light-font-color font-semibold dark:dark:text-warmGray-300">Native Name: <span className="font-extralight">{countryData.nativeName[0].official}</span></p>
                 }
                 {
                   countryData && 'population' in countryData &&
-                  <p className="text-light-font-color font-semibold dark:text-gray-200">Population: <span className="font-extralight">{countryData.population.toLocaleString()}</span></p>
+                  <p className="text-light-font-color font-semibold dark:text-warmGray-300">Population: <span className="font-extralight">{countryData.population.toLocaleString()}</span></p>
                 }
                 {
                   countryData && 'region' in countryData &&
-                  <p className="text-light-font-color font-semibold dark:text-gray-200">Region: <span className="font-extralight">{countryData.region}</span></p>
+                  <p className="text-light-font-color font-semibold dark:text-warmGray-300">Region: <span className="font-extralight">{countryData.region}</span></p>
                 }
                 {
                   countryData && 'subregion' in countryData &&
-                  <p className="text-light-font-color font-semibold dark:text-gray-200">Sub Region: <span className="font-extralight">{countryData.subregion}</span></p>
+                  <p className="text-light-font-color font-semibold dark:text-warmGray-300">Sub Region: <span className="font-extralight">{countryData.subregion}</span></p>
                 }
                 {
                   countryData && 'capital' in countryData &&
-                  <p className="text-light-font-color font-semibold dark:text-gray-200">Capital: <span className="font-extralight">{countryData.capital[0]}</span></p>
+                  <p className="text-light-font-color font-semibold dark:text-warmGray-300">Capital: <span className="font-extralight">{countryData.capital[0]}</span></p>
                 }
               </div>
   
               <div className="flex flex-col gap-2">
                 {
                   countryData && 'currencies' in countryData &&
-                  <p className="text-light-font-color font-semibold dark:text-gray-200">Currencies: <span className="font-extralight">{getCurrencies(countryData.currencies)}</span></p>
+                  <p className="text-light-font-color font-semibold dark:text-warmGray-300">Currencies: <span className="font-extralight">{getCurrencies(countryData.currencies)}</span></p>
                 }
                 {
                   countryData && 'languages' in countryData &&
-                  <p className="text-light-font-color font-semibold dark:text-gray-200">Languages: <span className="font-extralight">{getLanguages(countryData.languages)}</span></p>
+                  <p className="text-light-font-color font-semibold dark:text-warmGray-300">Languages: <span className="font-extralight">{getLanguages(countryData.languages)}</span></p>
                 }
               </div>
             </div>

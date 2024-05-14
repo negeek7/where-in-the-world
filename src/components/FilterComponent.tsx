@@ -35,7 +35,7 @@ function FilterComponent({handleFilterSearch, regions}: FilterProps) {
         <button
           id="dropdownDefaultButton"
           onClick={handleDropDown}
-          className="shadow-lg bg-black bg-opacity-0 text-light-font-color focus:ring-0 focus:outline-none font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:focus:ring-blue-800" type="button">
+          className="shadow-lg bg-black bg-opacity-0 text-light-font-color focus:ring-0 focus:outline-none font-medium rounded-lg px-2 text-sm sm:text-md sm:px-5 sm:py-2.5 text-center inline-flex items-center dark:bg-dark-main-color dark:text-warmGray-300 dark:focus:ring-blue-800" type="button">
           {!selectedRegion ? 'Filter by Region' : selectedRegion}
           <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
