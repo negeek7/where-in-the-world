@@ -10,6 +10,8 @@ function App() {
   const [dataLimit, setDataLimit] = useState<number>(20)
   const [slicedCountryData, setSlicedCountryData] = useState([])
   const [endOfData, setEndOfData] = useState<boolean>(false)
+  const [searchFilteredData, setSearchFilteredData] = useState([])
+  const [filtersApplied, setFiltersApplied] = useState<boolean>(false)
 
   // reference to hold the debounce timeoutId
   const debounceTimeout = useRef<number | null>(null);
@@ -71,12 +73,26 @@ function App() {
   // add debounce to handle scroll 
   // remove scroll event once no more data is left to be sliced
 
-
+  const handleSearchValue = (value: string) => {
+    const result = slicedCountryData.filter((item: {name: {common: string}}) =>{
+      const itemName = item.name.common.toLowerCase()
+      const searchValue = value.toLowerCase()
+      return itemName.includes(searchValue)
+    })
+    console.log(result, "result")
+    if(result.length > 0){
+      setSearchFilteredData(result)
+    }
+  }
 
   return (
     <>
       <NavBar />
-      <Home data={slicedCountryData} />
+      <Home 
+        data={slicedCountryData} 
+        handleSearchValue={handleSearchValue}
+        searchFilteredData={searchFilteredData}
+      />
     </>
   )
 }

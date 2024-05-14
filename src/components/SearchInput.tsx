@@ -1,19 +1,38 @@
 import { MagnifyingGlass } from "@phosphor-icons/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 interface InputProps {
-    placeholder: string
+    placeholder: string,
+    handleSearchValue: Function
 }
 
-function SearchInput({placeholder}: InputProps) {
+function SearchInput({placeholder, handleSearchValue}: InputProps) {
 
     const [inputText, setInputText] = useState('')
+    const [timeoutId, setTimeoutId] = useState<number>()
+    const [initialRender, setInitialRender] = useState(true)
+
+    useEffect(() => {
+        if(!initialRender){
+            clearTimeout(timeoutId)
+            setTimeoutId(setTimeout(() => {
+                performSearch()
+            }, 2000))
+        } else {
+            setInitialRender(false)
+        }
+    }, [inputText])
+
+    const performSearch = () => {
+        console.log("this ran")
+        handleSearchValue(inputText)
+    }
 
     const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
         console.log(e.target.value, "ADAD")
         setInputText(e.target.value)
-        
     }
+
 
   return (
     <div className="flex gap-2 items-center px-2">
