@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import Home from './components/Home'
 import NavBar from './components/NavBar'
-import { countryApiCaller, getCountriesByName } from './util/countryApiCaller'
+import { countryApiCaller, getCountriesByName, getCountriesByRegion } from './util/countryApiCaller'
 
 function App() {
 
@@ -11,7 +11,7 @@ function App() {
   const [slicedCountryData, setSlicedCountryData] = useState([])
   const [endOfData, setEndOfData] = useState<boolean>(false)
   const [filteredData, setFilteredData] = useState([])
-  const [filtersApplied, setFiltersApplied] = useState({search: {value: '', applied: false}, dropdown: {value: '', applied: false}})
+  const [filtersApplied, setFiltersApplied] = useState({ search: { value: '', applied: false }, dropdown: { value: '', applied: false } })
 
   // reference to hold the debounce timeoutId
   const debounceTimeout = useRef<number | null>(null);
@@ -27,6 +27,10 @@ function App() {
       })
       .catch(error => console.log(error))
 
+    if (filteredData && filteredData.length > 0) {
+      document.removeEventListener('scroll', handleScroll)
+    }
+
     document.addEventListener('scroll', handleScroll)
     return () => {
       document.removeEventListener('scroll', handleScroll)
@@ -35,7 +39,7 @@ function App() {
 
   useEffect(() => {
     const result = countryData.slice(slicedCountryData.length, dataLimit)
-    if(!result.length){
+    if (!result.length) {
       setEndOfData(true)
     } else {
       setSlicedCountryData(prev => [...prev, ...result])
@@ -43,27 +47,41 @@ function App() {
   }, [dataLimit])
 
   useEffect(() => {
-    if(endOfData){
+    if (endOfData) {
       document.removeEventListener('scroll', handleScroll)
     }
   }, [endOfData])
 
+  // useEffect(() => {
+  //   const { search, dropdown } = filtersApplied
+
+  //   if (filteredData && filteredData.length > 0) {
+  //     document.removeEventListener('scroll', handleScroll)
+  //   }
+
+  //   console.log(search, dropdown)
+
+  //   if (!search.applied && dropdown.applied) {
+  //     console.log("yaha par chala ye")
+  //     setFilteredData([], () => {
+  //       handleFilterSearch(dropdown.value);
+  //     });
+  //   } else if (search.applied && !dropdown.applied) {
+  //     setFilteredData([])
+  //     handleSearchValue(search.value)
+  //   } else if (!search.applied && !dropdown.applied) {
+  //     setFilteredData([])
+  //   }
+
+  // }, [filtersApplied])
   useEffect(() => {
     const {search, dropdown} = filtersApplied
-
-    if(filteredData && filteredData.length){
-      document.removeEventListener('scroll', handleScroll)
-    }
-
     if(!search.applied && dropdown.applied){
       handleFilterSearch(dropdown.value)
     } else if (search.applied && !dropdown.applied){
       handleSearchValue(search.value)
-    } else if (!search.applied && !dropdown.applied){
-      setFilteredData([])
     }
-
-  }, [filtersApplied])
+  }, [filtersApplied]);
 
   const handleScroll = () => {
     if (endOfData) return;
@@ -91,49 +109,69 @@ function App() {
   // remove scroll event once no more data is left to be sliced
 
   const handleSearchValue = async (value: string) => {
-    if(!value){
-      setFiltersApplied(prev => ({...prev, search: {applied:false, value}}))
+    const { search } = filtersApplied
+    if (!value) {
+      setFiltersApplied(prev => ({ ...prev, search: { applied: false, value } }))
+      setFilteredData([])
+      return;
     }
-    if(value){
-      setFiltersApplied(prev => ({...prev, search: {applied:false, value}}))
-      if(!filteredData.length){
+    if (value) {
+      if (!search.applied) {
+        setFiltersApplied(prev => ({ ...prev, search: { applied: true, value } }))
+      }
+      if (!filteredData.length) {
         const result = await getCountriesByName('https://restcountries.com/v3.1', value)
-        if(result.length > 0){
+        if (result) {
           setFilteredData(result)
         }
       } else {
-          const result = slicedCountryData.filter((item: {name: {common: string}}) =>{
-            const itemName = item.name.common.toLowerCase()
-            const searchValue = value.toLowerCase()
-            return itemName.includes(searchValue)
-          })
-          if(result.length > 0){
-            setFilteredData(result)
-          }
+        const result = filteredData.filter((item: { name: { common: string } }) => {
+          const itemName = item.name.common.toLowerCase()
+          const searchValue = value.toLowerCase()
+          return itemName.includes(searchValue)
+        })
+        if (result) {
+          setFilteredData(result)
         }
       }
-  }
-
-  const handleFilterSearch = (value: string) => {
-    if(!value) setDropdownFilterData([]);
-    const result = slicedCountryData.filter((item: {region: string}) =>{
-      const region = item.region.toLowerCase()
-      const searchValue = value.toLowerCase()
-      return region === searchValue
-    })
-    console.log(result, "result")
-    if(result.length > 0){
-      setDropdownFilterData(result)
     }
   }
 
-  console.log(filteredData, "FILTERED DATA")
+  const handleFilterSearch = async (value: string) => {
+    const { dropdown } = filtersApplied
+    if (!value) {
+      setFiltersApplied(prev => ({ ...prev, dropdown: { applied: false, value } }))
+      setFilteredData([])
+      return;
+    }
+    if (value) {
+      if (!dropdown.applied) {
+        setFiltersApplied(prev => ({ ...prev, dropdown: { applied: true, value } }))
+      }
+      if (!filteredData.length) {
+        const result = await getCountriesByRegion('https://restcountries.com/v3.1', value)
+        if (result) {
+          setFilteredData(result)
+        }
+      } else {
+        const result = filteredData.filter((item: { region: string }) => {
+          const region = item.region.toLowerCase()
+          const searchValue = value.toLowerCase()
+          return region === searchValue
+        })
+        if (result) {
+          setFilteredData(result)
+        }
+      }
+    }
+
+  }
 
   return (
     <>
       <NavBar />
-      <Home 
-        data={slicedCountryData} 
+      <Home
+        data={slicedCountryData}
         handleSearchValue={handleSearchValue}
         handleFilterSearch={handleFilterSearch}
         filteredData={filteredData}

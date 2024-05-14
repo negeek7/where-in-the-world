@@ -24,12 +24,10 @@ function SearchInput({placeholder, handleSearchValue}: InputProps) {
     }, [inputText])
 
     const performSearch = () => {
-        console.log("this ran")
         handleSearchValue(inputText)
     }
 
     const handleInputText = (e: React.ChangeEvent<HTMLInputElement>) => {
-        console.log(e.target.value, "ADAD")
         setInputText(e.target.value)
     }
 

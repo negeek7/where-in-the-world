@@ -21,7 +21,7 @@ export async function getCountriesByName(url: RequestInfo | URL, name: string){
 
 export async function getCountriesByRegion(url: RequestInfo | URL, region: string){
 
-    const response = await fetch(`${url}/name/${region}`)
+    const response = await fetch(`${url}/region/${region}`)
     
     const result = await response.json()
 

@@ -1,3 +1,4 @@
+import { Backspace, Cross } from "@phosphor-icons/react";
 import { useState } from "react";
 
 
@@ -21,18 +22,29 @@ function FilterComponent({handleFilterSearch, regions}: FilterProps) {
     setIsOpen(false)
     handleFilterSearch(value)
   }
+  
+  const removeRegionValue = () => {
+    setSelectedRegion('')
+    setIsOpen(false)
+    handleFilterSearch('')
+  }
 
   return (
     <div className="relative">
-      <button
-        id="dropdownDefaultButton"
-        onClick={handleDropDown}
-        className="shadow-lg bg-black bg-opacity-0 text-light-font-color focus:ring-0 focus:outline-none font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:focus:ring-blue-800" type="button">
-        {!selectedRegion ? 'Filter by Region' : selectedRegion}
-        <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
-        </svg>
-      </button>
+      <div className="flex flex-row gap-4 items-center">
+        <button
+          id="dropdownDefaultButton"
+          onClick={handleDropDown}
+          className="shadow-lg bg-black bg-opacity-0 text-light-font-color focus:ring-0 focus:outline-none font-medium rounded-lg text-md px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:focus:ring-blue-800" type="button">
+          {!selectedRegion ? 'Filter by Region' : selectedRegion}
+          <svg className="w-2.5 h-2.5 ms-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 6">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 4 4 4-4" />
+          </svg>
+        </button>
+        {
+          selectedRegion && <Backspace size={26} onClick={removeRegionValue} className="cursor-pointer"/>
+        }
+      </div>
 
       <div
         id="dropdownId"
