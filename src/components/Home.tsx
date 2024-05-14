@@ -15,7 +15,10 @@ export interface Country {
     name: {
         common: string
     },
-    flags: object,
+    flags: {
+        png: string,
+        alt: string
+    },
     population: number,
     region: string,
     capital: Array<String>
@@ -27,7 +30,7 @@ function Home({ data }: PropsInfo) {
 
 
     return (
-        <div className="flex flex-row flex-wrap border-2 h-dvh p-14 gap-12 justify-center">
+        <div className="flex flex-row flex-wrap h-dvh p-14 gap-12 justify-center">
             {
                 data.map((country, index) => (
                     <CountryCard key={index} country={country} />

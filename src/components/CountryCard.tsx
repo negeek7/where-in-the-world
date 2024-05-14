@@ -10,7 +10,7 @@ function CountryCard({ country }: CountryProps) {
     return (
         <div className={`${styles.container}`}>
             <div className={styles.imagecontainer}>
-                <img src="https://flagcdn.com/in.svg" />
+                <img src={country.flags.png} alt={country.flags.alt}/>
             </div>
             <div className={styles.bottomcontainer}>
                 <p className="font-semibold text-xl mt-2 mb-4">{country.name.common}</p>
