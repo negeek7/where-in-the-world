@@ -13,7 +13,7 @@ function DarkModeToggle() {
   return (
     <>
       <button onClick={toggleDarkMode} className="border-none !outline-none border-transparent focus:border-transparent focus:ring-0 rounded-lg p-2 dark:text-white">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 text-sm sm:text-">
           {darkMode ? <Sun size={18} /> : <Moon size={18} />} {darkMode ? 'Light Mode' : 'Dark Mode'}
         </div>
       </button>
