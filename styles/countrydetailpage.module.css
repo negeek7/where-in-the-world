@@ -1,0 +1,11 @@
+.imagecontainer{
+    height: 400px;
+    width: 538px;
+    border-radius: 4px;
+}
+.imagecontainer img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 4px;
+}

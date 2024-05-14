@@ -3,6 +3,8 @@ import './App.css'
 import Home from './components/Home'
 import NavBar from './components/NavBar'
 import { countryApiCaller, getCountriesByName, getCountriesByRegion } from './util/countryApiCaller'
+import { Route, Routes } from 'react-router-dom'
+import CountryDetailPage from './components/CountryDetailPage'
 
 function App() {
 
@@ -170,12 +172,15 @@ function App() {
   return (
     <>
       <NavBar />
-      <Home
-        data={slicedCountryData}
-        handleSearchValue={handleSearchValue}
-        handleFilterSearch={handleFilterSearch}
-        filteredData={filteredData}
-      />
+      <Routes>
+        <Route path="country/:countryName" element={<CountryDetailPage />} />
+        <Route path="/" element={<Home
+          data={slicedCountryData}
+          handleSearchValue={handleSearchValue}
+          handleFilterSearch={handleFilterSearch}
+          filteredData={filteredData}
+        />} />
+      </Routes>
     </>
   )
 }
