@@ -35,7 +35,7 @@ function SearchInput({placeholder, handleSearchValue}: InputProps) {
 
 
   return (
-    <div className="flex gap-2 items-center px-2">
+    <div className="flex gap-2 items-center px-2 shadow-lg bg-black bg-opacity-0 rounded-md">
         <MagnifyingGlass size={20} className="text-gray-800"/>
         <input 
             placeholder={placeholder}

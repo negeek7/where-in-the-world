@@ -54,14 +54,14 @@ function Home({ data, handleSearchValue, searchFilteredData }: PropsInfo) {
 
     return (
         <div>
-            <div className="flex flex-row flex-wrap gap-8 py-4 md:py-2 md:justify-between md:items-center border-2 mt-8 md:px-40">
+            <div className="flex flex-row flex-wrap gap-8 py-4 px-14 md:px-28 md:py-2 md:justify-between md:items-center mt-8">
                 <SearchInput
                     placeholder={"Search for a country..."}
                     handleSearchValue={handleSearchValue}
                 />
                 <FilterComponent />
             </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-dvh py-10 px-14 gap-12 justify-center">
+            <div className="grid grid-cols-1 place-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-dvh py-10 px-14 gap-12 justify-center">
                 {renderData()}
         </div>
         </div>

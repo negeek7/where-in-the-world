@@ -8,7 +8,7 @@ interface CountryProps {
 function CountryCard({ country }: CountryProps) {
 
     return (
-        <div className={`${styles.container}`}>
+        <div className={`${styles.container} shadow-lg bg-black bg-opacity-0`}>
             <div className={styles.imagecontainer}>
                 <img src={country.flags.png} alt={country.flags.alt}/>
             </div>
