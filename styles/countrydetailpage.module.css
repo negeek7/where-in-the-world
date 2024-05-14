@@ -9,3 +9,11 @@
     object-fit: cover;
     border-radius: 4px;
 }
+
+@media (max-width: 768px) {
+    
+    .imagecontainer{
+        height: 100%;
+        width: 100%;
+    }
+}

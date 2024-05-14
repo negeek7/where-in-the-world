@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router-dom";
 import { getCountriesByName } from "../util/countryApiCaller";
 import styles from '../../styles/countrydetailpage.module.css';
+import { ArrowLeft } from "@phosphor-icons/react";
 
 function CountryDetailPage() {
 
@@ -58,58 +59,70 @@ function CountryDetailPage() {
   const getBorderCountries = (arr: Array<string>) => {
     return arr.map(item => {
       return (
-        <span>{item} </span>
+        <span className="py-1 px-6 border-2 ml-2 rounded border-none shadow-lg">{item} </span>
       )
     })
   }
 
   return (
-    <div>
-      <div className="border-2 border-red-800 p-14 flex flex-row gap-16 items-center">
+    <div className="p-6 px-6 dark:bg-dark-main-color border-2">
+      <button className="border-none text-sm md:text-lg flex text-center items-center gap-4 justify-center shadow-lg outline-none focus:ring-0 hover:ring-0 dark:text-white mb-16">
+        <ArrowLeft size={20} />
+        <span>Back</span>
+      </button>
+      <div className="flex flex-row flex-wrap items-center justify-center">
         {
           countryData && 'flags' in countryData &&
           <div className={styles.imagecontainer}>
             <img src={countryData.flags.png} />
           </div>
         }
-        <div>
+        <div className="flex gap-4 flex-col dark:text-white border-2 border-red-500">
           {
             countryData && 'name' in countryData &&
-            <h2 className="font-bold text-2xl">{countryData.name.official}</h2>
+            <h2 className="font-bold text-2xl my-8">{countryData.name.official}</h2>
           }
-          {
-            countryData && 'nativeName' in countryData && countryData.nativeName && countryData.nativeName.length > 0 &&
-            <p>Native Name: {countryData.nativeName[0].official}</p>
-          }
-          {
-            countryData && 'population' in countryData &&
-            <p>Population: {countryData.population}</p>
-          }
-          {
-            countryData && 'region' in countryData &&
-            <p>Region: {countryData.region}</p>
-          }
-          {
-            countryData && 'subregion' in countryData &&
-            <p>Sub Region: {countryData.subregion}</p>
-          }
-          {
-            countryData && 'capital' in countryData &&
-            <p>Capital: {countryData.capital[0]}</p>
-          }
-          {
-            countryData && 'currencies' in countryData &&
-            <p>Currencies: {getCurrencies(countryData.currencies)}</p>
-          }
-          {
-            countryData && 'languages' in countryData &&
-            <p>Languages: {getLanguages(countryData.languages)}</p>
-          }
+          <div className="flex flex-row flex-wrap gap-10 md:gap-14">
+            <div className="flex flex-col gap-2">
+              {
+                countryData && 'nativeName' in countryData && countryData.nativeName && countryData.nativeName.length > 0 &&
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Native Name: <span className="font-extralight">{countryData.nativeName[0].official}</span></p>
+              }
+              {
+                countryData && 'population' in countryData &&
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Population: <span className="font-extralight">{countryData.population}</span></p>
+              }
+              {
+                countryData && 'region' in countryData &&
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Region: <span className="font-extralight">{countryData.region}</span></p>
+              }
+              {
+                countryData && 'subregion' in countryData &&
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Sub Region: <span className="font-extralight">{countryData.subregion}</span></p>
+              }
+              {
+                countryData && 'capital' in countryData &&
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Capital: <span className="font-extralight">{countryData.capital[0]}</span></p>
+              }
+            </div>
+            <div className="flex flex-col gap-2">
+              {
+                countryData && 'currencies' in countryData &&
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Currencies: <span className="font-extralight">{getCurrencies(countryData.currencies)}</span></p>
+              }
+              {
+                countryData && 'languages' in countryData &&
+                <p className="text-light-font-color font-semibold dark:text-gray-200">Languages: <span className="font-extralight">{getLanguages(countryData.languages)}</span></p>
+              }
+            </div>
+          </div>
+          <div className="mt-8 md:mt-0">
+            {
+              countryData && 'borders' in countryData &&
+              <p className="dark:text-gray-200">Border Countries: {getBorderCountries(countryData.borders)}</p>
+            }
+          </div>
         </div>
-        {
-          countryData && 'borders' in countryData &&
-          <p>Border Countries: {getBorderCountries(countryData.borders)}</p>
-        }
 
       </div>
     </div>

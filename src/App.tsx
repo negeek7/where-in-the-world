@@ -172,6 +172,8 @@ function App() {
   return (
     <>
       <NavBar />
+      <div className="h-screen dark:bg-dark-main-color">
+
       <Routes>
         <Route path="country/:countryName" element={<CountryDetailPage />} />
         <Route path="/" element={<Home
@@ -181,6 +183,7 @@ function App() {
           filteredData={filteredData}
         />} />
       </Routes>
+      </div>
     </>
   )
 }
