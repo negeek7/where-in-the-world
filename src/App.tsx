@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import './App.css'
 import Home from './components/Home'
 import NavBar from './components/NavBar'
-import { countryApiCaller } from './util/countryApiCaller'
+import { countryApiCaller, getCountriesByName } from './util/countryApiCaller'
 
 function App() {
 
@@ -10,9 +10,8 @@ function App() {
   const [dataLimit, setDataLimit] = useState<number>(20)
   const [slicedCountryData, setSlicedCountryData] = useState([])
   const [endOfData, setEndOfData] = useState<boolean>(false)
-  const [searchFilteredData, setSearchFilteredData] = useState([])
-  const [dropdownFilterData, setDropdownFilterData] = useState([])
-  const [filtersApplied, setFiltersApplied] = useState<boolean>(false)
+  const [filteredData, setFilteredData] = useState([])
+  const [filtersApplied, setFiltersApplied] = useState({search: {value: '', applied: false}, dropdown: {value: '', applied: false}})
 
   // reference to hold the debounce timeoutId
   const debounceTimeout = useRef<number | null>(null);
@@ -49,11 +48,22 @@ function App() {
     }
   }, [endOfData])
 
-  // useEffect(() => {
-  //   if(!!searchFilteredData.length || !!dropdownFilterData.length){
-  //     setFilteredData([...searchFilteredData, ...dropdownFilterData])
-  //   }
-  // }, [searchFilteredData, dropdownFilterData])
+  useEffect(() => {
+    const {search, dropdown} = filtersApplied
+
+    if(filteredData && filteredData.length){
+      document.removeEventListener('scroll', handleScroll)
+    }
+
+    if(!search.applied && dropdown.applied){
+      handleFilterSearch(dropdown.value)
+    } else if (search.applied && !dropdown.applied){
+      handleSearchValue(search.value)
+    } else if (!search.applied && !dropdown.applied){
+      setFilteredData([])
+    }
+
+  }, [filtersApplied])
 
   const handleScroll = () => {
     if (endOfData) return;
@@ -80,17 +90,28 @@ function App() {
   // add debounce to handle scroll 
   // remove scroll event once no more data is left to be sliced
 
-  const handleSearchValue = (value: string) => {
-    if(!value) setSearchFilteredData([]);
-    const result = slicedCountryData.filter((item: {name: {common: string}}) =>{
-      const itemName = item.name.common.toLowerCase()
-      const searchValue = value.toLowerCase()
-      return itemName.includes(searchValue)
-    })
-    console.log(result, "result")
-    if(result.length > 0){
-      setSearchFilteredData(result)
+  const handleSearchValue = async (value: string) => {
+    if(!value){
+      setFiltersApplied(prev => ({...prev, search: {applied:false, value}}))
     }
+    if(value){
+      setFiltersApplied(prev => ({...prev, search: {applied:false, value}}))
+      if(!filteredData.length){
+        const result = await getCountriesByName('https://restcountries.com/v3.1', value)
+        if(result.length > 0){
+          setFilteredData(result)
+        }
+      } else {
+          const result = slicedCountryData.filter((item: {name: {common: string}}) =>{
+            const itemName = item.name.common.toLowerCase()
+            const searchValue = value.toLowerCase()
+            return itemName.includes(searchValue)
+          })
+          if(result.length > 0){
+            setFilteredData(result)
+          }
+        }
+      }
   }
 
   const handleFilterSearch = (value: string) => {
@@ -106,7 +127,7 @@ function App() {
     }
   }
 
-  console.log(dropdownFilterData, "dropdownFilterData")
+  console.log(filteredData, "FILTERED DATA")
 
   return (
     <>
@@ -115,8 +136,7 @@ function App() {
         data={slicedCountryData} 
         handleSearchValue={handleSearchValue}
         handleFilterSearch={handleFilterSearch}
-        searchFilteredData={searchFilteredData}
-        dropdownFilterData={dropdownFilterData}
+        filteredData={filteredData}
       />
     </>
   )

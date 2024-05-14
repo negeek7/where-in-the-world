@@ -8,3 +8,22 @@ export async function countryApiCaller(url: RequestInfo | URL, filter: { fields:
 
     return result
 }
+
+
+export async function getCountriesByName(url: RequestInfo | URL, name: string){
+
+    const response = await fetch(`${url}/name/${name}`)
+    
+    const result = await response.json()
+
+    return result
+}
+
+export async function getCountriesByRegion(url: RequestInfo | URL, region: string){
+
+    const response = await fetch(`${url}/name/${region}`)
+    
+    const result = await response.json()
+
+    return result
+}

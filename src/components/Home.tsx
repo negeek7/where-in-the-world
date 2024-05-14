@@ -12,9 +12,9 @@ interface PropsInfo {
     data: Array<Country>,
     handleSearchValue: Function,
     handleFilterSearch: Function,
-    searchFilteredData: Array<Country>,
-    dropdownFilterData: Array<Country>,
-    // filteredData: Array<Country>
+    // searchFilteredData: Array<Country>,
+    // dropdownFilterData: Array<Country>,
+    filteredData: Array<Country>
 }
 
 
@@ -32,15 +32,12 @@ export interface Country {
     capital: Array<String>,
 }
 
-function Home({ data, handleSearchValue, searchFilteredData, handleFilterSearch, dropdownFilterData }: PropsInfo) {
-
-    console.log(data, "DATAA")
-
+function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: PropsInfo) {
 
     const renderData = () => {
-        if (searchFilteredData && searchFilteredData.length > 0) {
+        if (filteredData && filteredData.length > 0) {
             return (
-                searchFilteredData.map((country, index) => (
+                filteredData.map((country, index) => (
                     <CountryCard key={index} country={country} />
                 ))
             )
