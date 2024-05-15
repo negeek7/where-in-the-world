@@ -1,12 +1,12 @@
 .imagecontainer{
-    height: 400px;
-    width: 538px;
+    height: 360px;
+    width: 520px;
     border-radius: 4px;
 }
 .imagecontainer img {
     height: 100%;
     width: 100%;
-    object-fit: cover;
+    object-fit: fill;
     border-radius: 4px;
 }
 
