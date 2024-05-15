@@ -138,8 +138,7 @@ function App() {
       setFiltersApplied(prev => ({ ...prev, dropdown: { applied: false, value } }))
       setFilteredData([])
       return;
-    }
-    if (value) {
+    } else {
       if (!dropdown.applied) {
         setFiltersApplied(prev => ({ ...prev, dropdown: { applied: true, value } }))
       }
