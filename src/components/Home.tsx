@@ -37,24 +37,17 @@ export interface Country {
 
 function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: PropsInfo) {
 
-    const [isLoading, setIsLoading] = useState(false)
+    const [isLoading, setIsLoading] = useState(true)
 
     useEffect(() => {
         if (!filteredData.length && !data.length) {
             setIsLoading(true);
         } else {
-            setIsLoading(false);
+            setIsLoading(true);
         }
     }, [filteredData, data]);
     
     const renderData = () => {
-        if(isLoading){
-            return (
-                <div className="flex items-center justify-center min-h-screen">
-                    <Spinner />
-                </div>
-            )
-        }
         if (filteredData && filteredData.length > 0) {
             return (
                 filteredData.map((country, index) => (
@@ -83,9 +76,17 @@ function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: Pro
                     handleFilterSearch={handleFilterSearch}
                 />
             </div>
+            {
+                isLoading ? 
+                <div className="flex justify-center items-center mt-40 sm:mt-60">
+                    <Spinner />
+                </div>
+                :
             <div className="grid grid-cols-1 justify-items-center md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 h-dvh py-10 px-14 gap-12 justify-center">
                 {renderData()}
             </div>
+
+            }
         </>
     )
 }
