@@ -1,9 +1,15 @@
 import { Moon, Sun } from "@phosphor-icons/react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 
 function DarkModeToggle() {
 
   const [darkMode, setDarkMode] = useState(false)
+
+  useEffect(() => {
+    if(darkMode){
+      document.body.classList.add('dark:bg-dark-main-color')
+    }
+  }, [darkMode])
 
   function toggleDarkMode() {
     setDarkMode(!darkMode)
