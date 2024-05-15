@@ -10,7 +10,7 @@ function CountryCard({ country }: CountryProps) {
 
     return (
         <>
-            <div className={`${styles.container} shadow-lg bg-black bg-opacity-0 cursor-pointer`}>
+            <div className={`${styles.container} shadow-lg bg-black bg-opacity-0 cursor-pointer hover:scale-105 transition-all duration-300 `}>
         <Link to={`country/${country.name.common}`}>
                 <div className={styles.imagecontainer}>
                     <img src={country.flags.png} alt={country.flags.alt}/>
