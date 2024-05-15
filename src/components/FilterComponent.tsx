@@ -1,4 +1,4 @@
-import { Backspace, Cross } from "@phosphor-icons/react";
+import { X } from "@phosphor-icons/react";
 import { useState } from "react";
 
 
@@ -42,7 +42,7 @@ function FilterComponent({handleFilterSearch, regions}: FilterProps) {
           </svg>
         </button>
         {
-          selectedRegion && <Backspace size={26} onClick={removeRegionValue} className="cursor-pointer"/>
+          selectedRegion && <X size={18} onClick={removeRegionValue} className="mt-1 cursor-pointer font-thin dark:text-warmGray-300"/>
         }
       </div>
 

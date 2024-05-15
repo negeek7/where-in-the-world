@@ -1,6 +1,9 @@
+import { useEffect, useState } from "react"
 import CountryCard from "./CountryCard"
 import FilterComponent from "./FilterComponent"
 import SearchInput from "./SearchInput"
+import Spinner from "./Spinner"
+
 
 
 
@@ -34,7 +37,24 @@ export interface Country {
 
 function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: PropsInfo) {
 
+    const [isLoading, setIsLoading] = useState(false)
+
+    useEffect(() => {
+        if (!filteredData.length && !data.length) {
+            setIsLoading(true);
+        } else {
+            setIsLoading(false);
+        }
+    }, [filteredData, data]);
+    
     const renderData = () => {
+        if(isLoading){
+            return (
+                <div className="flex items-center justify-center min-h-screen">
+                    <Spinner />
+                </div>
+            )
+        }
         if (filteredData && filteredData.length > 0) {
             return (
                 filteredData.map((country, index) => (
