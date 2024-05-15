@@ -16,7 +16,7 @@ function CountryCard({ country }: CountryProps) {
                     <img src={country.flags.png} alt={country.flags.alt}/>
                 </div>
                 <div className={`${styles.bottomcontainer} dark:bg-dark-nav-color rounded-md`}>
-                    <p className="font-semibold text-xl mt-2 mb-4 dark:text-stone-300-300 truncate" title={country.name.common}>{country.name.common}</p>
+                    <p className="font-semibold text-xl mt-2 mb-4 dark:text-stone-300 truncate" title={country.name.common}>{country.name.common}</p>
                     <div className="flex flex-col gap-2">
                         {
                             country.population &&
