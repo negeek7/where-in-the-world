@@ -76,6 +76,7 @@ function App() {
   //   }
 
   // }, [filtersApplied])
+  
   useEffect(() => {
     const {search, dropdown} = filtersApplied
     if(!search.applied && dropdown.applied){
