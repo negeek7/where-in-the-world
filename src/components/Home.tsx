@@ -37,13 +37,13 @@ export interface Country {
 
 function Home({ data, handleSearchValue, handleFilterSearch, filteredData }: PropsInfo) {
 
-    const [isLoading, setIsLoading] = useState(true)
+    const [isLoading, setIsLoading] = useState(false)
 
     useEffect(() => {
         if (!filteredData.length && !data.length) {
             setIsLoading(true);
         } else {
-            setIsLoading(true);
+            setIsLoading(false);
         }
     }, [filteredData, data]);
     
