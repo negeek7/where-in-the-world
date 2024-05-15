@@ -163,7 +163,7 @@ function App() {
   }
 
   return (
-    <div className="dark:bg-dark-main-color overflow-y-auto">
+    <>
       <NavBar />
       <Routes>
         <Route path="country/:countryName" element={<CountryDetailPage />} />
@@ -174,7 +174,7 @@ function App() {
           filteredData={filteredData}
         />} />
       </Routes>
-    </div>
+    </>
   )
 }
 

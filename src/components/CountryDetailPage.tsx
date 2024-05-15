@@ -65,7 +65,7 @@ function CountryDetailPage() {
 
   return (
     
-      <div className="px-6 lg:px-12 xl:px-28 p-6 dark:bg-dark-main-color">
+      <div className="px-6 lg:px-12 xl:px-28 p-6">
   
           <div className="flex justify-start">
             <button onClick={() => navigate(-1)}className="text-sm md:text-lg flex items-center gap-4 justify-center shadow-lg outline-none focus:ring-0 hover:ring-0 dark:text-white">
